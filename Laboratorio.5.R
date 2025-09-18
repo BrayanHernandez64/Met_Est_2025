@@ -18,3 +18,21 @@ boxplot(costal)
 # Prueba T
 t.test(costal, mu=80)
 
+#H0 = es igual a 80
+#H1 = no es igual a 80
+
+#Produccion de semillas
+sem <- read.csv("Datos_arboles.csv", header = T)
+sem$Tiempo <- as.factor(sem$Tiempo)
+
+tapply(sem$Kgsem, sem$Tiempo, mean)
+
+boxplot(sem$Kgsem ~ sem$Tiempo,
+        col = "blue",
+        xlab = "Año",
+        ylab = "Semilla (kg)")
+
+t2012 <- subset(sem, sem$Tiempo =="T2012")
+t2013 <- subset(sem, sem$Tiempo !="T2012")
+t.test(t2012$Kgsem, t2013$Kgsem, paored = T, alternative = "less")
+
